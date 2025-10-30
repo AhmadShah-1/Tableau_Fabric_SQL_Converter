@@ -6,3 +6,11 @@ Refactoring:
 - sql_parser.py           - Done
 - ui_controller.py        - James
 - main.py                 - Done
+
+
+
+Additional Features:
+- Visualization of the conversion metrics
+- Visualization of the flagged items
+- OpenAI Integration for error review and suggestions
+- To be continued...
