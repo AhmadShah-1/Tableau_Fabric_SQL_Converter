@@ -109,3 +109,4 @@ class SQLCleaner:
             'original_query': query
         }
 
+# I MADE A CHANGE
