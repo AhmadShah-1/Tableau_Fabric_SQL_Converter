@@ -93,13 +93,13 @@ class SQLCleaner:
             - 'statements': List of individual statements if multi-statement
             - 'original_query': The original query string
         """
-        # Step 1: Clean the query
+        # Clean the query
         cleaned = self.clean_query(query)
 
-        # Step 2: Extract comments
+        # Extract comments
         query_no_comments, comments = self.extract_comments(cleaned)
         
-        # Step 3: Split into statements
+        # Split into statements
         statements = self.split_statements(query_no_comments)
         
         return {

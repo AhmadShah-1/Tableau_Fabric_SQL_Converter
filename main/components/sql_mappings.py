@@ -1,20 +1,17 @@
 """
 SQL Mappings Module
-===================
 
 This module contains hash map (dictionary) mappings for converting Tableau SQL syntax
-to Microsoft Fabric SQL syntax. It includes mappings for common functions across
-DATE, STRING, and AGGREGATE categories.
+to Microsoft Fabric SQL syntax. 
 
-The mappings use dictionary comprehension for case-insensitive lookups to handle
-various SQL formatting styles.
+It includes mappings for common functions across DATE, STRING, and AGGREGATE categories. (they are case insensitive, and may not encompass all functions)
 """
 
 
 class TableauFabricMappings:
-    """
+    '''
     All SQL functions within a Hashmap for O(1) lookup
-    """
+    '''
     
     # Tableau function name -> Fabric function name
     _BASE_FUNCTION_MAPPINGS = {
@@ -86,20 +83,16 @@ class TableauFabricMappings:
     }
     
     def __init__(self):
-        """
+        '''
         Initialize the mappings class and create case-insensitive lookup dictionaries
         using dictionary comprehension.
-        """
+        '''
         
         # Create case-insensitive mappings using dictionary comprehension
-        # This allows lookups regardless of SQL case conventions
-        self.function_mappings = {
-            key.upper(): value 
-            for key, value in self._BASE_FUNCTION_MAPPINGS.items()
-        }
+        # This makes it so that we do not need to worry about case sensitivity, and just use a unified format
+        self.function_mappings = {key.upper(): value for key, value in self._BASE_FUNCTION_MAPPINGS.items()}
         
         # Removed unused reverse and syntax pattern maps to simplify module
-        
         # Functions requiring special parameter handling
         self.special_handling_functions = {
             'MEDIAN',  # Needs WITHIN GROUP clause
@@ -115,73 +108,56 @@ class TableauFabricMappings:
             'DATE',
         }
     
+    # Get the Fabric equivalent of a Tableau function.
     def get_fabric_function(self, tableau_function):
-        """
-        Get the Fabric equivalent of a Tableau function.
-        
-        Args:
-            tableau_function (str): The Tableau function name
-            
-        Returns:
-            str: The Fabric function name, or None if no mapping exists
-        """
+        '''
+        Returns the Fabric equivalent of a Tableau function. (Uppercase)
+        '''
         return self.function_mappings.get(tableau_function.upper())
     
+    # Check if a function has a mapping defined.
     def is_mapped_function(self, function_name):
-        """
-        Check if a function has a mapping defined.
-        
-        Args:
-            function_name (str): The function name to check
-            
-        Returns:
-            bool: True if mapping exists, False otherwise
-        """
+        '''
+        Returns True if a function has a mapping defined. (Uppercase)
+        '''
         return function_name.upper() in self.function_mappings
     
+    # Check if a function need special handling (not simple one to one mapping)
+    # TODO: later addition, try using an api call to a lakehouse endpoint to check for verification of every fucntion translation that requires special handling
     def requires_special_handling(self, function_name):
-        """
-        Check if a function requires special parameter handling beyond simple replacement.
-        
-        Args:
-            function_name (str): The function name to check
-            
-        Returns:
-            bool: True if special handling is needed, False otherwise
-        """
+        '''
+        Returns True if a function requires special parameter handling beyond simple replacement. (Uppercase)
+        '''
         return function_name.upper() in self.special_handling_functions
     
+    # Get a list of all supported Tableau functions.
     def get_all_tableau_functions(self):
-        """
-        Get a list of all supported Tableau functions.
-        
-        Returns:
-            list: List of Tableau function names
-        """
+        '''
+        Returns a list of all supported Tableau functions
+        '''
         return list(self.function_mappings.keys())
     
+    # Get statistics about the available mappings.
     def get_mapping_statistics(self):
-        """
-        Get statistics about the available mappings.
-        
-        Returns:
-            dict: Dictionary containing mapping statistics
-        """
+        '''      
+        TODO: I wanted to remove statistics and keep it simple (Just flag lines with errors)
+        returns a dictionary containing mapping statistics
+        {
+            'total_mappings': total number of mappings,
+            'date_functions': number of date functions,
+            'string_functions': number of string functions,
+            'aggregate_functions': number of aggregate functions,
+            'special_handling_count': number of functions that require special handling
+        }
+        '''
+        dates = ['DATEADD', 'DATEDIFF', 'DATEPART', 'DATENAME', 'NOW', 'TODAY', 'YEAR', 'MONTH', 'DAY', 'MAKEDATE', 'MAKEDATETIME']
+        strings = ['LEN', 'LENGTH', 'SUBSTR', 'CONTAINS', 'LEFT', 'RIGHT', 'TRIM', 'LTRIM', 'RTRIM', 'UPPER', 'LOWER', 'REPLACE', 'SPLIT', 'FIND', 'STARTSWITH', 'ENDSWITH']
+        aggregates = ['SUM', 'AVG', 'COUNT', 'MIN', 'MAX', 'STDEV', 'STDEVP', 'VAR', 'VARP', 'MEDIAN']
+
         # Count functions by category using dictionary comprehension
-        date_functions = len([f for f in self._BASE_FUNCTION_MAPPINGS.keys() 
-                             if f in ['DATEADD', 'DATEDIFF', 'DATEPART', 'DATENAME', 
-                                     'NOW', 'TODAY', 'YEAR', 'MONTH', 'DAY', 
-                                     'MAKEDATE', 'MAKEDATETIME']])
-        
-        string_functions = len([f for f in self._BASE_FUNCTION_MAPPINGS.keys() 
-                               if f in ['LEN', 'LENGTH', 'SUBSTR', 'CONTAINS', 'LEFT', 
-                                       'RIGHT', 'TRIM', 'LTRIM', 'RTRIM', 'UPPER', 
-                                       'LOWER', 'REPLACE', 'SPLIT', 'FIND', 
-                                       'STARTSWITH', 'ENDSWITH']])
-        
-        aggregate_functions = len([f for f in self._BASE_FUNCTION_MAPPINGS.keys() 
-                                  if f in ['SUM', 'AVG', 'COUNT', 'MIN', 'MAX', 
-                                          'STDEV', 'STDEVP', 'VAR', 'VARP', 'MEDIAN']])
+        date_functions = len([f for f in self._BASE_FUNCTION_MAPPINGS.keys() if f in dates])
+        string_functions = len([f for f in self._BASE_FUNCTION_MAPPINGS.keys() if f in strings])
+        aggregate_functions = len([f for f in self._BASE_FUNCTION_MAPPINGS.keys() if f in aggregates])
         
         return {
             'total_mappings': len(self.function_mappings),
@@ -190,7 +166,4 @@ class TableauFabricMappings:
             'aggregate_functions': aggregate_functions,
             'special_handling_count': len(self.special_handling_functions)
         }
-
-
-# Singleton instance removed to avoid hidden global state; instantiate where needed
 

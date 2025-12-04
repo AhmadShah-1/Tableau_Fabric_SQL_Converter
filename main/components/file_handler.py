@@ -87,6 +87,9 @@ class FileHandler:
         Output: Suggested output filename
         """
 
+        '''
+        TODO: Update the output filename generation, to detect type of input file, so we can support fabric to tableau conversion later down the line
+        '''
         # Get the input file name and directory
         directory = os.path.dirname(input_path)
         filename = os.path.basename(input_path)
