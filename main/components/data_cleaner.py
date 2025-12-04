@@ -56,8 +56,7 @@ class SQLCleaner:
         query_no_multiline = self.multiline_comment_pattern.sub('', query)
         
         # Extract single-line comments --
-        single_line_pattern = re.compile(r'--[^\r\n]*', re.MULTILINE)
-
+        # single_line_pattern = re.compile(r'--[^\r\n]*', re.MULTILINE)
         single_line_comments = self.comment_pattern.findall(query_no_multiline)
         comments.extend(single_line_comments)
         query_no_comments = self.comment_pattern.sub('', query_no_multiline)
@@ -96,16 +95,16 @@ class SQLCleaner:
             - 'original_query': The original query string
         """
         # Extract comments
-        query_no_comments, comments = self.extract_comments(cleaned)
+        query_no_comments, comments = self.extract_comments(query)
 
         # Clean the query
-        cleaned = self.clean_query(query)
+        cleaned = self.clean_query(query_no_comments)
         
         # Split into statements
-        statements = self.split_statements(query_no_comments)
+        statements = self.split_statements(cleaned)
         
         return {
-            'cleaned_query': query_no_comments,
+            'cleaned_query': cleaned,
             'comments': comments,
             'statements': statements,
             'original_query': query
