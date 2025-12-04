@@ -8,6 +8,13 @@ Refactoring:
 - main.py                 - Done
 
 
+TODO:
+- Line numbering for flagged errors is incorrect
+- Percentage completion has issues, currently disabled, remove it honestly theres no need (later addition)
+- Update the output filename generation, to detect type of input file, so we can support fabric to tableau conversion later down the line
+- Add a function to the ui_controller.py file to send an email with the conversion results
+
+
 
 Additional Features:
 - Visualization of the conversion metrics

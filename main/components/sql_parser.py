@@ -90,12 +90,12 @@ class SQLConverter:
         self.metrics.total_statements = 1
         
         try:
-            # 1) Regex-based remapping (primary conversion)
+            # Regex-based remapping (primary conversion)
             remapped_sql, flags = apply_regex_remapping(tableau_query)
             for (ln, reason) in flags:
                 self.metrics.add_flagged_statement(ln, reason)
 
-            # 2) Formatting via sqlparse
+            # Formatting via sqlparse
             '''
             We use sqlparse to only increase the readability of the SQL query. If it fails, 
             we just equate the reamapped_SQL to the fabric_sql
