@@ -10,13 +10,13 @@ class SQLCleaner:
     def __init__(self):
         # Regex patterns for cleaning (Removing whitespace, comments, and multi line comments)
         self.whitespace_pattern = re.compile(r'\s+')  # Multiple spaces to single space
-        self.comment_pattern = re.compile(r'--.*$', re.MULTILINE)  
+        self.comment_pattern = re.compile(r'--.*$', re.MULTILINE)             # Single line comments
         self.multiline_comment_pattern = re.compile(r'/\*.*?\*/', re.DOTALL)  # Multi line comments
 
     def clean_query(self, query):
         '''
         This function actually performs the cleaning of the query
-        Args: query (str): Raw SQL Query
+        Args: Raw SQL Query
         Returns: str: Cleaned SQL Query
         '''
 
@@ -56,6 +56,8 @@ class SQLCleaner:
         query_no_multiline = self.multiline_comment_pattern.sub('', query)
         
         # Extract single-line comments --
+        single_line_pattern = re.compile(r'--[^\r\n]*', re.MULTILINE)
+
         single_line_comments = self.comment_pattern.findall(query_no_multiline)
         comments.extend(single_line_comments)
         query_no_comments = self.comment_pattern.sub('', query_no_multiline)
@@ -93,11 +95,11 @@ class SQLCleaner:
             - 'statements': List of individual statements if multi-statement
             - 'original_query': The original query string
         """
-        # Clean the query
-        cleaned = self.clean_query(query)
-
         # Extract comments
         query_no_comments, comments = self.extract_comments(cleaned)
+
+        # Clean the query
+        cleaned = self.clean_query(query)
         
         # Split into statements
         statements = self.split_statements(query_no_comments)
