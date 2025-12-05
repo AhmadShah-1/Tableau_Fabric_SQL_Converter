@@ -70,11 +70,10 @@ class RegexRemapper:
         sql = self.re_substr.sub('SUBSTRING(', sql)
         sql = self.re_makedate.sub('DATEFROMPARTS(', sql)
         sql = self.re_makedatetime.sub('DATETIMEFROMPARTS(', sql)
-        # LN() → LOG(), LOG() (Tableau, base-10) → LOG10()
         sql = self.re_ln.sub('LOG(', sql)
         sql = self.re_log.sub('LOG10(', sql)
 
-        # Remove Tableau-style bracketed identifiers: [field] → field
+        # Remove Tableau-style bracketed identifiers: [field] -> field
         sql = self.re_bracket_ident.sub(r"\1", sql)
 
         # Type-like functions
@@ -116,7 +115,7 @@ class RegexRemapper:
             return f"CHARINDEX('{needle}', {s})"
         sql = self.re_find.sub(_find, sql)
 
-        # MEDIAN → flag for manual rewrite (PERCENTILE_CONT WITHIN GROUP)
+        #  MEDIAN -> flag for manual rewrite (PERCENTILE_CONT WITHIN GROUP)
         if self.re_median.search(sql):
             self._flag_lines(sql, r"\bMEDIAN\s*\(", "MEDIAN requires PERCENTILE_CONT(0.5) WITHIN GROUP rewrite", flags)
 

@@ -12,12 +12,9 @@ sqlparse>=0.4.4
 # Visualization
 matplotlib>=3.7.0
 
-# Testing (development only)
+# Testing
 pytest>=7.4.0
 pytest-cov>=4.1.0
 
 # Packaging (for creating executable)
 pyinstaller>=5.13.0
-
-pytest-cov>=4.1.0
-

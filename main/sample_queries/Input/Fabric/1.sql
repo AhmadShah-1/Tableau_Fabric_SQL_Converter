@@ -33,8 +33,8 @@ SELECT
     CAST(SignupDate AS DATE) AS SignupDateCast,
 
     -- Math
-    LOG(Revenue) AS LogRev,        -- LN() → LOG()
-    LOG10(Revenue) AS Log10Rev,    -- LOG() → LOG10()
+    LOG(Revenue) AS LogRev,        
+    LOG10(Revenue) AS Log10Rev,   
 
     -- Null handling
     ISNULL(Profit, 0) AS ProfitNZ,
