@@ -73,6 +73,8 @@ class SQLCleaner:
             return []
         
         # Remove comments first to avoid splitting on semicolons in comments
+        # TODO: Comments are preserved in memory to be later passed to AI for context and intent (To check for any semantical errors and prompt user internvention) (Not yet implemented)
+        # TODO: If api for AI is implemented, ensure that line number is also extracted for better context understanding
         query_no_comments, _ = self.extract_comments(query)                         # Currently list of comments is not used but the data is
         
         # Split on semicolons

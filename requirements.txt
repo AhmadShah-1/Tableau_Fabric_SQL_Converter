@@ -1,17 +1,10 @@
-# Tableau to Fabric SQL Converter - Required Dependencies
-# =======================================================
-# 
-# Installation:
-#   pip install -r requirements.txt
-#
-# For development/testing:
-#   pip install -r requirements.txt pytest
-
-# Core Dependencies
-# -----------------
+# pip install -r requirements.txt
 
 # Data manipulation and cleaning
 pandas>=2.0.0
+
+# Web framework
+flask>=2.0.0
 
 # SQL parsing and formatting
 sqlparse>=0.4.4
@@ -26,9 +19,5 @@ pytest-cov>=4.1.0
 # Packaging (for creating executable)
 pyinstaller>=5.13.0
 
-# Note: tkinter is included with Python standard library
-# If tkinter is not available, install python-tk:
-#   - Ubuntu/Debian: sudo apt-get install python3-tk
-#   - macOS: Included with Python installation
-#   - Windows: Included with Python installation
+pytest-cov>=4.1.0
 

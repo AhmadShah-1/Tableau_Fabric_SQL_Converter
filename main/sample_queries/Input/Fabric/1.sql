@@ -1,4 +1,4 @@
--- Customer analytics extract for Tableau → Fabric conversion test
+-- Customer analytics extract for Tableau -> Fabric conversion test
 SELECT
     CustomerID,
     CustomerName,

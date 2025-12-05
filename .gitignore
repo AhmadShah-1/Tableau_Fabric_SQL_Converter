@@ -1,2 +1,6 @@
 .venv/
 __pycache__/
+.pytest_cache/
+.venv/Lib
+.venv/Scripts
+.venv/pyvenv.cfg

@@ -87,10 +87,10 @@ class RegexRemapper:
         def _split_rewrite(m: re.Match) -> str:
             s = m.group(1).strip()
             delim = m.group(2)
-            idx = m.group(3).strip()
-            if idx == '1':
+            index = m.group(3).strip()
+            if index == '1':
                 return f"SUBSTRING({s}, 1, CHARINDEX('{delim}', {s}) - 1)"
-            self._flag_lines(sql, rf"\bSPLIT\s*\(\s*{re.escape(s)}\s*,\s*'{re.escape(delim)}'\s*,\s*{idx}\s*\)",
+            self._flag_lines(sql, rf"\bSPLIT\s*\(\s*{re.escape(s)}\s*,\s*'{re.escape(delim)}'\s*,\s*{index}\s*\)",
                              "SPLIT with index != 1 requires manual rewrite", flags)
             return m.group(0)
         sql = self.re_split.sub(_split_rewrite, sql)
@@ -120,7 +120,7 @@ class RegexRemapper:
         if self.re_median.search(sql):
             self._flag_lines(sql, r"\bMEDIAN\s*\(", "MEDIAN requires PERCENTILE_CONT(0.5) WITHIN GROUP rewrite", flags)
 
-        # LOD expressions → flag
+        # LOD expressions -> flag
         if self.re_lod.search(sql):
             self._flag_lines(sql, r"\{\s*(FIXED|INCLUDE|EXCLUDE)\b", "Tableau LOD expressions are not supported", flags)
 

@@ -11,6 +11,15 @@ It includes mappings for common functions across DATE, STRING, and AGGREGATE cat
 class TableauFabricMappings:
     '''
     All SQL functions within a Hashmap for O(1) lookup
+    NOTE: Possible improvement (below)
+    create a database (Doesn't need to be mongodb, just another folder with a file named "mappings.json)
+    Each of the categories to consider are listed below (ie: Date, String, Aggregate, Logical, Mathematical)
+    add them to this new .json, and update _BASE_FUNCTION_MAPPINGS
+    then whenever the user encounters a function that isn't in the mappings, they can manually add it (as a button to click)
+    which will then update .json file (consider whether this should only exist within the same session (memory) or saved within .json file [because then the user would also need another view to modify errors])
+    Also consider the possiblility of stack overflow from adding it to memory (user has a low memory device, so just add a refresh token [check by time of last action on tkinter] or something)
+    NOTE: If refresh token is implemented, ensure its in a new .py file, so if this was to be web based, it would be easier to implement and maintain
+    honestly that's not a huge issue considering even 100 extra pointers won't do much to a modern device but good practice (defensive programming)
     '''
     
     # Tableau function name -> Fabric function name
@@ -141,6 +150,7 @@ class TableauFabricMappings:
     def get_mapping_statistics(self):
         '''      
         TODO: I wanted to remove statistics and keep it simple (Just flag lines with errors)
+        TODO: I would like for this to be improved on to later show validation statitics and graphing, for when users are able to send a help request to a error tracking system: Gmail -> SendGrid or something alike
         returns a dictionary containing mapping statistics
         {
             'total_mappings': total number of mappings,

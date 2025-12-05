@@ -39,10 +39,10 @@ SELECT
     -- Null handling
     IFNULL([Profit], 0) AS ProfitNZ,
 
-    -- Median test (your parser should flag this)
+    -- Median test (parser should flag this)
     MEDIAN([Revenue]) AS MedianRevenue,
 
-    -- LOD test (your parser must flag this)
+    -- LOD test (parser must flag this)
     { FIXED [Region] : SUM([Revenue]) } AS RegionalRevenueLOD
 FROM CustomerTable
 WHERE CONTAINS([Email], 'gmail')

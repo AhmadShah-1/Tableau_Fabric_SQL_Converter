@@ -15,7 +15,6 @@ TODO:
 - Add a function to the ui_controller.py file to send an email with the conversion results
 
 
-
 Additional Features:
 - Visualization of the conversion metrics
 - Visualization of the flagged items

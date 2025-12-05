@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tableau to Fabric SQL Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Tableau to Fabric SQL Converter</h1>
+        
+        <form method="POST">
+            <div class="input-section">
+                <label for="tableau_sql">Tableau SQL (Input):</label>
+                <textarea id="tableau_sql" name="tableau_sql" placeholder="Paste your Tableau SQL here">{{ tableau_sql }}</textarea>
+            </div>
+            
+            <div class="button-section">
+                <button type="submit">Convert</button>
+            </div>
+            
+            <div class="input-section">
+                <label for="fabric_sql">Fabric SQL (Output):</label>
+                <textarea id="fabric_sql" readonly placeholder="Converted Fabric SQL will appear here">{{ fabric_sql }}</textarea>
+            </div>
+        </form>
+
+
+        <!-- TODO: Jinja is rlly cool and I use it at work a lot, can easily change this to parse onto a template for company records and reviewal for a database-->
+        {% if errors %}
+        <div class="errors">
+            <h3> Flagged Items (Manual Review):</h3>
+            <ul>
+                {% for line_num, reason in errors %}
+                <li>Line {{ line_num }}: {{ reason }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+
+
+
+    </div>
+</body>
+</html>

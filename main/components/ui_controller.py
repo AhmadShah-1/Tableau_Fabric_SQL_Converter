@@ -4,7 +4,7 @@ UI Controller Module
 This module provides the Tkinter-based graphical user interface for the SQL converter.
 It implements the application workflow following the design flowchart:
 
-AI was utilized for the tkinter GUI design and layout.
+NOTE: AI was utilized for the tkinter GUI design and layout.
 
 This file is responsible for:
 - UI components and layout
