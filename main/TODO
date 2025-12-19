@@ -7,12 +7,39 @@ Refactoring:
 - ui_controller.py        - James
 - main.py                 - Done
 
+Flask app is functional but minimal
+CSS styling not implemented
+Command dictionary and regex depth are limited
+Error handling exists but is GUI-only
+Temporary Gmail + API keys configured for email notifications
+GUI button patterns already implemented and reusable
 
 TODO:
 - Line numbering for flagged errors is incorrect
 - Percentage completion has issues, currently disabled, remove it honestly theres no need (later addition)
 - Update the output filename generation, to detect type of input file, so we can support fabric to tableau conversion later down the line
 - Add a function to the ui_controller.py file to send an email with the conversion results
+
+- Add file upload functionality
+- Implenent POST route
+- Save uploads to database or local folder
+- Add additional Flask routes
+- Home page
+- Info / Help / Steps / Support page
+- Implement simple authentication
+- Gmail OAuth login
+- Implement CSS styling
+- Flexbox layout
+- Color scheme
+- Text formatting and spacing
+
+- Expand command dictionary
+- Increase regex formatter depth
+- Support a broader set of command patterns
+
+- Add OpenAI API integration
+- Review generated output
+- Provide text-only suggestions to the user, Must NOT modify code automatically
 
 
 Additional Features:
